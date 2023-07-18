@@ -10,8 +10,8 @@ interface Props {
 }
 
 const EntryList: FC<Props> = ({ status }) => {
-    const { entries } = useContext(EntriesContext)
-    const { isDragging } = useContext(UIContext)
+    const { entries, updateEntry } = useContext(EntriesContext)
+    const { isDragging, endDragging } = useContext(UIContext)
 
     const entriesByStatus = useMemo(() => entries.filter(entry => entry.status === status), [entries])
 
@@ -21,6 +21,11 @@ const EntryList: FC<Props> = ({ status }) => {
 
     const onDropEntry = (e: DragEvent<HTMLDivElement>) => {
         const id = e.dataTransfer.getData('text')
+
+        const entry = entries.find(e => e._id === id)!;
+        entry.status = status;
+        updateEntry(entry);
+        endDragging();
     }
 
 
@@ -31,7 +36,7 @@ const EntryList: FC<Props> = ({ status }) => {
             onDragOver={allowDrop}
             className={isDragging ? styles.dragging : ''}
         >
-            <Paper sx={{ height: 'calc(100vh - 250px)',  backgroundColor: 'transparent', padding: '1px 10px' }}>
+            <Paper sx={{ height: 'calc(100vh - 250px)', backgroundColor: 'transparent', padding: '1px 10px' }}>
 
                 {/* todo: cambiara si hago drag o no */}
                 <List sx={{ opacity: isDragging ? 0.2 : 1, transition: 'all 1s' }}>

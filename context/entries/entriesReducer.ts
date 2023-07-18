@@ -17,12 +17,14 @@ export const entriesReducer = (state: EntriesState, action: EntriesActionType): 
             case 'Entry Update-Entry':
                 return {
                      ...state,
-                     entries: [...state.entries.map(entry => {
+                     entries: state.entries.map(entry => {
                         if(entry._id === action.payload._id) {
-                            return action.payload
+                            entry.status = action.payload.status;
+                            entry.description = action.payload.description;
+                            // return action.payload
                         }
                         return entry
-                     })],
+                     }),
                  }
         default:
             return state;
