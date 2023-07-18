@@ -5,10 +5,10 @@
 
 ::-webkit-scrollbar {
   width: 6px;
-  background:  rgba(21, 66, 88, 0.4);
+  background:  #2c272d40;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(21, 66, 88, 0.4);
+  background: #2c272d40;
 
 }
